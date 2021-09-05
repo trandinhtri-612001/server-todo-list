@@ -1,0 +1,58 @@
+POST http://localhost:5000/api/auth/register
+Content-Type: application/json
+
+{
+  "username": "harry2",
+  "password": "harr1"
+}
+
+###
+POST http://localhost:5000/api/auth/login 
+Content-Type: application/json
+
+{
+  "username": "harry1",
+  "password": "harr1"
+}
+
+###
+get 
+
+
+
+
+###
+POST http://localhost:5000/api/post
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2MTMxYWE4MDcxNGVhN2ExZGM3MTU4YzEiLCJpYXQiOjE2MzA2NDUzODV9.h8khFLQk06X0KWjvyjiosiOJhclNMNePKoDeqTN9R7w
+
+
+{
+  "title": "React4",
+  "description": "React",
+  "url": "react.com",
+  "status": "TO LEARN"
+}
+
+###
+get http://localhost:5000/api/post
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2MTMxYWE4MDcxNGVhN2ExZGM3MTU4YzEiLCJpYXQiOjE2MzA2NDUzODV9.h8khFLQk06X0KWjvyjiosiOJhclNMNePKoDeqTN9R7w
+
+
+###
+put http://localhost:5000/api/post/6131acc8714ea7a1dc7158ca
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2MTMxYWE4MDcxNGVhN2ExZGM3MTU4YzEiLCJpYXQiOjE2MzA2NDUzODV9.h8khFLQk06X0KWjvyjiosiOJhclNMNePKoDeqTN9R7w
+
+
+{
+  "title": "angulas",
+  "description": "React",
+  "url": "react.com",
+  "status": "TO LEARN"
+}
+
+###
+DELETE  http://localhost:5000/api/post/6131acc8714ea7a1dc7158ca
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2MTMxYWE4MDcxNGVhN2ExZGM3MTU4YzEiLCJpYXQiOjE2MzA2NDUzODV9.h8khFLQk06X0KWjvyjiosiOJhclNMNePKoDeqTN9R7w
