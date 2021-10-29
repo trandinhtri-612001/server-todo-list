@@ -88,8 +88,8 @@ router.put('/:id', verifyToken, async (req, res) => {
 			post: updatedPost
 		})
 	} catch (error) {
-		console.log(error)
-		res.status(500).json({ success: false, message: 'Internal server error' })
+		
+		return res.status(500).json({ success: false, message: 'Internal server error' })
 	}
 })
 
@@ -113,8 +113,8 @@ try {
     })
 
 } catch (error) {
-    console.log(error)
-		res.status(500).json({ success: false, message: 'Internal server error' })
+    
+	return	res.status(500).json({ success: false, message: 'Internal server error' })
     
 }
 })

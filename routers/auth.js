@@ -4,6 +4,7 @@ const User = require('../models/users')
 const argon2 = require('argon2');
 const jwt = require('jsonwebtoken');
 const verifyToken = require('../middleware/auth');
+const { find, findOne, findById } = require('../models/users');
 
 
 
@@ -12,13 +13,14 @@ router.get('/', verifyToken,async(req, res) => {
 
 	try {
 		
-		const user = await User.findById(req.userId).select('-password');
+		const user = await User.findById(req.userId);
 		if (!user) {
 			return res.status(400).json({success:false,message:'uesr is not exeting'})
 		}
 		
 		res.json({success:true,user:user})
 	} catch (error) {
+		
 
 		
 	}
@@ -76,7 +78,7 @@ router.post('/register', async (req, res) => {
 // @access Public
 
 router.post('/login', async(req,res)=>{
-const {username, password} = req.body;
+const {username, password } = req.body;
 //simple validation
 if(!username||!password){
     res.status(400).json({success:false,message:"missing username and/or password"})
@@ -106,7 +108,50 @@ try {
     console.log(error)
 		res.status(500).json({ success: false, message: 'Internal server error' })
     
-}
+	}
+	// @route POST api/auth/update
+// @desc update  user
+// @access private
+	router.put('/update', verifyToken, async(req, res) => {
+		const {_id, username, password, oldpassword} = req.body
+		if (!username || !password || !oldpassword) {
+			
+			 return res.status(400).json({success:false,message:"missing username and/or password"})
+			
+		} 
+			
+		
+
+		try {
+			const user = await User.findOne({ _id:_id })
+			console.log(user)
+			const verify = await argon2.verify(user.password, oldpassword)
+			if (!verify) {
+				return res.json({success:false, message:'Incorrect user name or oldpassword '})
+			}
+		
+			const haspass = await argon2.hash(password)
+
+			const userupdate = {
+				username: username,
+				password:haspass
+
+			}
+			const authupdatecondision = {_id: _id}
+			const update = await User.findOneAndUpdate(authupdatecondision, userupdate)
+			if (!update) {
+							return res.status(401).json({
+				success: false,
+				message: 'user not found or user not authorised'
+			})
+			}
+			return res.json({success:true, message:"update user successfully", user:userupdate})
+		} catch (error) {
+					console.log(error)
+		return res.status(500).json({ success: false, message: 'Internal server error' })
+			
+		}
+	})
 
 })
 

@@ -40,9 +40,6 @@ ConnectDB();
 
 
 
-app.get('/abc', (req, res) => {
-    res.status("server not runing")
-})
 
 
 app.use(cors())
